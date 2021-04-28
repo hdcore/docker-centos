@@ -4,3 +4,5 @@ services:
     build:
       context: .
       dockerfile: centos7-sfpd/Dockerfile
+    volumes:
+      - ./config/mail.rc:/etc/mail.rc
