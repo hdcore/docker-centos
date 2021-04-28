@@ -1,0 +1,6 @@
+version: "3.7"
+services:
+  local-centos7-sfpd:
+    build:
+      context: .
+      dockerfile: centos7-sfpd/Dockerfile
