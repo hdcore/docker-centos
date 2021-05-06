@@ -1,8 +1,17 @@
 version: "3.7"
 services:
-  local-centos7-sfpd:
-    build:
-      context: .
-      dockerfile: centos7-sfpd/Dockerfile
+  local-centos7-run:
+    image: hdcore/docker-centos:centos7
     volumes:
       - ./config/mail.rc:/etc/mail.rc
+      - ./config/tnsnames.ora:/usr/lib/oracle/19.8/client64/network/admin/tnsnames.ora
+    networks:
+      - centos-net
+    environment:
+      dummy: dummy
+networks:
+  centos-net:
+    ipam:
+      config:
+        - subnet: 172.28.1.0/24
+

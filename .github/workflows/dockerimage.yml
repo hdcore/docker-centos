@@ -12,26 +12,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  # test-build:
-  #  runs-on: ubuntu-latest
-  #  name: Testing build ${{ matrix.version }}
-  #  strategy:
-  #    matrix:
-  #      version: ["centos7-sfpd"]
-  #    fail-fast: false
-  #  steps:
-  #    - name: Checkout
-  #      uses: actions/checkout@v2
-  #    - name: Test build ${{ matrix.version }}
-  #      run: docker-compose build local-${{ matrix.version }}
-
   build-and-push:
-    # needs: test-build
     runs-on: ubuntu-latest
     name: Build and push ${{ matrix.version }}
     strategy:
       matrix:
-        version: ["centos7-sfpd"]
+        version: ["centos7"]
       fail-fast: false
     steps:
       - name: Checkout
