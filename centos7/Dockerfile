@@ -34,7 +34,7 @@ RUN yum -y --setopt=tsflags=nodocs update \
 # Add certificates on build time
 COPY ./certificates/* /certificates/
 ARG CACERT_FILE_ROOT
-RUN set-cacertificates.sh trueffh55
+RUN set-cacertificates.sh
 
 # Install Oracle Client 19
 COPY ./centos7/ol7-temp.repo /etc/yum.repos.d/ol7-temp.repo
@@ -42,7 +42,7 @@ RUN curl https://yum.oracle.com/RPM-GPG-KEY-oracle-ol7 -o /etc/pki/rpm-gpg/RPM-G
     && curl https://yum.oracle.com/RPM-GPG-KEY-oracle-ol7 -o /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle \
     && gpg --quiet --with-fingerprint /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle \
     && yum install -y --setopt=tsflags=nodocs oracle-release-el7 && yum clean all && rm -rf /var/cache/yum
-RUN yum install -y --setopt=tsflags=nodocs oracle-instantclient19.8-basic.x86_64 oracle-instantclient19.8-sqlplus.x86_64 oracle-instantclient19.8-tools.x86_64 \
+RUN yum install -y --setopt=tsflags=nodocs oracle-instantclient19.8-basic.x86_64 oracle-instantclient19.8-sqlplus.x86_64 oracle-instantclient19.8-devel.x86_64 oracle-instantclient19.8-tools.x86_64 \
     && yum clean all \
     && rm -rf /var/cache/yum
 RUN mkdir /etc/yum.repos.d/disabled/ \
@@ -52,12 +52,12 @@ ENV TNS_ADMIN /usr/lib/oracle/19.8/client64/network/admin/
 ENV NLS_LANG American_America.UTF8
 
 # Install Ruby 2.4.6
-RUN yum -y install centos-release-scl \
+RUN yum -y install gcc make centos-release-scl \
     && yum-config-manager --enable rhel-server-rhscl-7-rpms \
     && yum -y install rh-ruby24 rh-ruby24-ruby-devel \
     && yum clean all \
     && source /opt/rh/rh-ruby24/enable \
-    && gem install bundler \
+    && gem install bundler ruby-oci8 mail \
     && gem install rubocop-ast:1.4.1 rubocop:1.12.1
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]

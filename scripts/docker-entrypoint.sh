@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Author Danny
-# Version GIT: 2021-05-06 20:08
+# Version GIT: 2021-05-06 20:43
 
 # docker-entrypoint.sh 
 # script who is launched at startup of the container
@@ -12,7 +12,7 @@ CGREEN="\e[32m"
 CNORMAL="\e[0m"
 
 # Start
-echo -e "${CGREEN}Start entrypoint ${0}${CNORMAL}"
+echo -e "== ${CGREEN}Start entrypoint ${0}${CNORMAL} =="
 
 # Setting proxy server
 set-proxy.sh
@@ -21,7 +21,7 @@ set-proxy.sh
 set-cacertificates.sh
 
 # End
-echo -e "${CGREEN}End entrypoint ${0}${CNORMAL}"
+echo -e "== ${CGREEN}End entrypoint ${0}${CNORMAL} =="
 
 # Execute docker CMD
 exec "$@"
