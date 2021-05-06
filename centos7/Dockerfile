@@ -57,7 +57,7 @@ RUN yum -y install gcc make centos-release-scl \
     && yum -y install rh-ruby24 rh-ruby24-ruby-devel \
     && yum clean all \
     && source /opt/rh/rh-ruby24/enable \
-    && gem install bundler ruby-oci8 mail \
+    && gem install bundler ruby-oci8 mail mini_mime \
     && gem install rubocop-ast:1.4.1 rubocop:1.12.1
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
