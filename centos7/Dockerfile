@@ -60,5 +60,11 @@ RUN yum -y install gcc make centos-release-scl \
     && gem install bundler ruby-oci8 mail mini_mime \
     && gem install rubocop-ast:1.4.1 rubocop:1.12.1
 
+# Install Python 2.7.5
+RUN yum -y install python python27-python-pip \
+    && source /opt/rh/python27/enable \
+    && pip install cx_Oracle==7.3 \
+    && yum clean all
+
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 CMD ["/bin/bash"]

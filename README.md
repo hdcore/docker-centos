@@ -1,6 +1,6 @@
 # Docker-centos
 
-HDCore extended docker image for centos with oracle and ruby development
+HDCore extended docker image for centos7 with Ruby 2.4.6 and Python 2.7.5 development with Oracle Client 19 support
 
 # FAQ
 
