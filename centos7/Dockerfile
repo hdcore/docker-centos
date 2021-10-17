@@ -51,7 +51,7 @@ ENV ORACLE_HOME /usr/lib/oracle/19.8/client64
 ENV TNS_ADMIN /usr/lib/oracle/19.8/client64/network/admin/
 ENV NLS_LANG American_America.UTF8
 
-# Install Ruby 2.4.6
+# Install Ruby 2.4.6 with rubocop
 RUN yum -y install gcc make centos-release-scl \
     && yum-config-manager --enable rhel-server-rhscl-7-rpms \
     && yum -y install rh-ruby24 rh-ruby24-ruby-devel \
@@ -60,11 +60,13 @@ RUN yum -y install gcc make centos-release-scl \
     && gem install bundler ruby-oci8 mail mini_mime \
     && gem install parallel:1.20.1 rubocop-ast:1.4.1 rubocop:1.12.1
 
-# Install Python 3.8.6
+# Install Python 3.8.6 with pylint, yamllint and flake
 RUN yum -y install rh-python38 \
+    && yum clean all \
     && source /opt/rh/rh-python38/enable \
     && pip install --upgrade pip setuptools cx_Oracle \
-    && yum clean all
+    && pip install pylint yamllint flake8 pytest
+    
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 CMD ["/bin/bash"]
